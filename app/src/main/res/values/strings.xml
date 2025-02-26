@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Shabashka</string>
+    <string name="client_id">616340947682-ucqlio2m7unnop91dhpdu5hd70qjcalu.apps.googleusercontent.com</string>
+    <string name="google_auth">Вход Google</string>
+    <string name="email">Введите email</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="password">Введите пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="log_in">Войти</string>
+    <string name="dont_have_account">Нет аккаунта?</string>
+    <string name="login_failed">Вход не выполнен</string>
+    <string name="internet_problems">Проблемы с интернетом</string>
+    <string name="auth_error">Ошибка аутентификации через Google</string>
+    <string name="enter_email_and_password">Ошибка аутентификации через Google</string>
+    <string name="incorrect_email_and_password">Неверный email или пароль</string>
+    <string name="incorrect_email">Неверный email</string>
+    <string name="short_password">Пароль короче 6 символов</string>
+    <string name="different_passwords">Пароли не совпадают</string>
+    <string name="email_already_used">Этот email уже используется</string>
+</resources>
