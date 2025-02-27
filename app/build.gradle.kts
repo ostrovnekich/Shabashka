@@ -47,4 +47,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation (libs.glide)
     implementation (libs.play.services.auth)
+    implementation (libs.firebase.firestore)
 }
