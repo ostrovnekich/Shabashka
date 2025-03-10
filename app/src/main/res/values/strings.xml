@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Shabashka</string>
     <string name="client_id">616340947682-ucqlio2m7unnop91dhpdu5hd70qjcalu.apps.googleusercontent.com</string>
-    <string name="google_auth">Вход Google</string>
+    <string name="google_auth">Вход с Google</string>
     <string name="email">Введите email</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="password">Введите пароль</string>
@@ -18,4 +18,16 @@
     <string name="short_password">Пароль короче 6 символов</string>
     <string name="different_passwords">Пароли не совпадают</string>
     <string name="email_already_used">Этот email уже используется</string>
+    <string name="salary_per_hour">Br за час</string>
+    <string name="salary_fixed">Br</string>
+    <string name="space">%s %s</string>
+    <string name="title">title</string>
+    <string name="location">location</string>
+    <string name="salary">salary</string>
+    <string name="hourly">hourly</string>
+    <string name="description">description</string>
+    <string name="home">Главная</string>
+    <string name="favorite">Избранное</string>
+    <string name="profile">Профиль</string>
+    <string name="jobs_collection_path">jobs</string>
 </resources>

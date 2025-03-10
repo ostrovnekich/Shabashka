@@ -10,6 +10,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginManager {
     private final FirebaseAuth firebaseAuth;
     private final Activity activity;
+
+    public FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
     public interface AuthCallback {
         void onSuccess(FirebaseUser user);
         void onFailure(String exception);

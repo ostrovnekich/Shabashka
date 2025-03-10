@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:backgroundTint="#4285F4"
-            android:drawableLeft="@drawable/ic_google_logo"
+            android:drawableLeft="@drawable/ic_google"
             android:gravity="center"
             android:paddingVertical="12dp"
             android:text="@string/google_auth"
