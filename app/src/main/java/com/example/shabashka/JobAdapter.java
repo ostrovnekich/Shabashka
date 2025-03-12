@@ -1,8 +1,8 @@
 package com.example.shabashka;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +15,9 @@ import java.util.List;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     private final List<Job> jobList;
-    private final Activity activity;
-    public JobAdapter(Activity activity, List<Job> jobList) {
-        this.activity = activity;
+    private final Context context;
+    public JobAdapter(Context context, List<Job> jobList) {
+        this.context = context;
         this.jobList = jobList;
     }
 
@@ -36,19 +36,29 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         holder.jobLocation.setText(job.getLocation());
 
         if (job.isHourly()) {
-            holder.jobSalary.setText(String.format(activity.getString(R.string.space), job.getSalary(), activity.getString(R.string.salary_per_hour)));
+            holder.jobSalary.setText(String.format(context.getString(R.string.space), job.getSalary(), context.getString(R.string.salary_per_hour)));
         } else {
-            holder.jobSalary.setText(String.format(activity.getString(R.string.space), job.getSalary(), activity.getString(R.string.salary_fixed)));
+            holder.jobSalary.setText(String.format(context.getString(R.string.space), job.getSalary(), context.getString(R.string.salary_fixed)));
         }
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, JobDetailsActivity.class);
-            intent.putExtra(activity.getString(R.string.title), job.getTitle());
-            intent.putExtra(activity.getString(R.string.location), job.getLocation());
-            intent.putExtra(activity.getString(R.string.salary), job.getSalary());
-            intent.putExtra(activity.getString(R.string.hourly), job.isHourly());
-            intent.putExtra(activity.getString(R.string.description), job.getDescription());
-            activity.startActivity(intent);
+            JobDetailsFragment fragment = new JobDetailsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("title", job.getTitle());
+            bundle.putString("location", job.getLocation());
+            bundle.putString("salary", job.getSalary());
+            bundle.putBoolean("hourly", job.isHourly());
+            bundle.putString("description", job.getDescription());
+            fragment.setArguments(bundle);
+
+            if (context instanceof BaseActivity) {
+                BaseActivity activity = (BaseActivity) context;
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
         });
     }
 
@@ -68,4 +78,3 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         }
     }
 }
-

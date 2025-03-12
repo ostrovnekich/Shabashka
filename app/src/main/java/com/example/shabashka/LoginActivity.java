@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = loginManager.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(this, HomeActivity.class));
+            startActivity(new Intent(this, BaseActivity.class));
             finish();
         }
     }
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         loginManager.loginUser(email, password, new LoginManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             googleLoginManager.handleSignInResult(data, new GoogleLoginManager.AuthCallback() {
                 @Override
                 public void onSuccess(FirebaseUser user) {
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                     finish();
                 }
 

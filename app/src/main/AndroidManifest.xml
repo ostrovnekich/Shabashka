@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Shabashka"
         tools:targetApi="31">
         <activity
-            android:name=".JobDetailsActivity"
+            android:name=".BaseActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
@@ -24,9 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
