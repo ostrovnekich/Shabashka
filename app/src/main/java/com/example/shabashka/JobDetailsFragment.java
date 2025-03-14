@@ -56,8 +56,8 @@ public class JobDetailsFragment extends Fragment {
             tvTitle.setText(title);
             tvLocation.setText(location);
             tvSalary.setText(hourly
-                    ? String.format(getString(R.string.space), salary, getString(R.string.salary_per_hour))
-                    : String.format(getString(R.string.space), salary, getString(R.string.salary_fixed)));
+                    ? String.format("%s %S", salary, getString(R.string.salary_per_hour))
+                    : String.format("%s %s", salary, getString(R.string.salary_fixed)));
             tvDescription.setText(description);
         }
     }

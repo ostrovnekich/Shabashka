@@ -20,16 +20,8 @@
     <string name="email_already_used">Этот email уже используется</string>
     <string name="salary_per_hour">Br за час</string>
     <string name="salary_fixed">Br</string>
-    <string name="space">%s %s</string>
-    <string name="title">title</string>
-    <string name="location">location</string>
-    <string name="salary">salary</string>
-    <string name="hourly">hourly</string>
-    <string name="description">description</string>
     <string name="home">Главная</string>
     <string name="favorite">Избранное</string>
     <string name="profile">Профиль</string>
     <string name="jobs_collection_path">jobs</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

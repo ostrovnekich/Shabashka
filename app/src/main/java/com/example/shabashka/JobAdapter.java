@@ -36,9 +36,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         holder.jobLocation.setText(job.getLocation());
 
         if (job.isHourly()) {
-            holder.jobSalary.setText(String.format(context.getString(R.string.space), job.getSalary(), context.getString(R.string.salary_per_hour)));
+            holder.jobSalary.setText(String.format("%s %s", job.getSalary(), context.getString(R.string.salary_per_hour)));
         } else {
-            holder.jobSalary.setText(String.format(context.getString(R.string.space), job.getSalary(), context.getString(R.string.salary_fixed)));
+            holder.jobSalary.setText(String.format("%s %s", job.getSalary(), context.getString(R.string.salary_fixed)));
         }
 
         holder.itemView.setOnClickListener(v -> {
