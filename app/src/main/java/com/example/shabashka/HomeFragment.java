@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         jobList = new ArrayList<>();
-        jobAdapter = new JobAdapter(requireContext(), jobList);
+        jobAdapter = new JobAdapter(requireActivity(), jobList);
         recyclerView.setAdapter(jobAdapter);
 
         jobLoader = new JobLoader(requireContext());

@@ -24,4 +24,22 @@
     <string name="favorite">Избранное</string>
     <string name="profile">Профиль</string>
     <string name="jobs_collection_path">jobs</string>
+    <string name="create">Создать</string>
+    <string name="settings">Настройки</string>
+    <string name="fill_fields">Заполните все поля</string>
+    <string name="shabashka_added">Шабашка добавлена</string>
+    <string name="error">Ошибка: </string>
+    <string name="max_length">Максимальная длина: </string>
+    <string name="title">Заголовок</string>
+    <string name="description">Описание</string>
+    <string name="location">Местоположение</string>
+    <string name="contact_phone">Контактный телефон</string>
+    <string name="payment">Оплата Br</string>
+    <string name="payment_hourly">Почасовая оплата</string>
+    <string name="create_shabashka">Создать шабашку</string>
+    <string name="contacts">Контакты</string>
+    <string name="response">Откликнуться</string>
+    <string name="phone">Телефон:</string>
+    <string name="mail">Email:</string>
+    <string name="close">Закрыть</string>
 </resources>

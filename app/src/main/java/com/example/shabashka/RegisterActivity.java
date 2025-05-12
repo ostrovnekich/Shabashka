@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class RegisterActivity extends AppCompatActivity {
     private EditText etEmail, etPassword, etConfirmPassword;
     private RegisterManager registerManager;
-    private Toast currentToast;
     private GoogleLoginManager googleLoginManager;
 
     @Override
@@ -54,14 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnGoogleSignIn.setOnClickListener(v -> startActivityForResult(googleLoginManager.getSignInIntent(), 9001));
     }
 
-    private void showToast(String message) {
-        if (currentToast != null) {
-            currentToast.cancel();
-        }
-        currentToast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-        currentToast.show();
-    }
-
     private void registerUser() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -78,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String exception) {
-                showToast(exception);
+                ToastHelper.show(RegisterActivity.this, exception);
             }
         });
     }
@@ -96,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(String errorMessage) {
-                    showToast(errorMessage);
+                    ToastHelper.show(RegisterActivity.this, errorMessage);
                 }
             });
         }

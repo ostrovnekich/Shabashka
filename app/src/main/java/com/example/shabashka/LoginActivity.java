@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private LoginManager loginManager;
-    private Toast currentToast;
     private GoogleLoginManager googleLoginManager;
 
     @Override
@@ -62,14 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         btnGoogleSignIn.setOnClickListener(v -> startActivityForResult(googleLoginManager.getSignInIntent(), 9001));
     }
 
-    private void showToast(String message) {
-        if (currentToast != null) {
-            currentToast.cancel();
-        }
-        currentToast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-        currentToast.show();
-    }
-
     private void loginUser() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -85,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMessage) {
-                showToast(errorMessage);
+                ToastHelper.show(LoginActivity.this, errorMessage);
             }
         });
     }
@@ -103,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(String errorMessage) {
-                    showToast(errorMessage);
+                    ToastHelper.show(LoginActivity.this, errorMessage);
                 }
             });
         }
