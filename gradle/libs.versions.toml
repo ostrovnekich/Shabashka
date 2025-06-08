@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.1"
+agp = "8.10.1"
 firebaseFirestore = "25.1.2"
 glide = "4.16.0"
 gson = "2.10.1"
@@ -16,9 +16,11 @@ credentials = "1.3.0"
 credentialsPlayServicesAuth = "1.3.0"
 googleid = "1.1.1"
 materialVersion = "1.10.0"
+places = "4.2.0"
 playServicesAuth = "21.3.0"
 playServicesAuthVersion = "20.7.0"
 firebaseDatabase = "21.0.0"
+recyclerview = "1.4.0"
 
 [libraries]
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
@@ -36,9 +38,11 @@ credentials = { group = "androidx.credentials", name = "credentials", version.re
 credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 material-v1100 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-auth-v2070 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

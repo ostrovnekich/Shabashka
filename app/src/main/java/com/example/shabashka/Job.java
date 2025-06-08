@@ -9,11 +9,13 @@ public class Job {
     private String userId;
     private String phone;
     private String email;
+    private String jobId;
+    private boolean isFavorite;
 
     public Job() {}
 
     public Job(String title, String description, String location, String salary,
-               boolean hourly, String userId, String phone, String email) {
+               boolean hourly, String userId, String phone, String email, String jobId) {
         this.title = title;
         this.description = description;
         this.location = location;
@@ -22,8 +24,16 @@ public class Job {
         this.userId = userId;
         this.phone = phone;
         this.email = email;
+        this.jobId = jobId;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public String getLocation() { return location; }
@@ -31,7 +41,7 @@ public class Job {
     public boolean isHourly() { return hourly; }
     public String getUserId() { return userId; }
     public String getPhone() { return phone; }
-    public String getEmail() { return email; }
+    public String getJobId() { return jobId; }
 
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }

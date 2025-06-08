@@ -48,21 +48,8 @@
                 android:layout_marginTop="8dp">
 
                 <Button
-                    android:id="@+id/btnApply"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:minHeight="56dp"
-                    android:text="@string/response"
-                    android:textSize="14sp"
-                    android:padding="10dp"
-                    android:background="@drawable/rounded_button"
-                    tools:ignore="ButtonStyle,VisualLintButtonSize" />
-
-                <Button
                     android:id="@+id/btnContact"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:minHeight="56dp"
                     android:text="@string/contacts"

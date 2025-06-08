@@ -24,8 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = loginManager.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(this, BaseActivity.class));
-            finish();
+            openProperActivity(currentUser);
         }
     }
 
@@ -44,20 +43,21 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         Button btnLogin = findViewById(R.id.btn_login);
         TextView tvRegister = findViewById(R.id.tv_register);
+        Button btnGoogleSignIn = findViewById(R.id.btn_google_sign_in);
 
         loginManager = new LoginManager(this);
+        googleLoginManager = new GoogleLoginManager(this);
 
         btnLogin.setOnClickListener(v -> loginUser());
+
         tvRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             finish();
         });
 
-        googleLoginManager = new GoogleLoginManager(this);
-
-        Button btnGoogleSignIn = findViewById(R.id.btn_google_sign_in);
-        btnGoogleSignIn.setOnClickListener(v -> startActivityForResult(googleLoginManager.getSignInIntent(), 9001));
+        btnGoogleSignIn.setOnClickListener(v ->
+                startActivityForResult(googleLoginManager.getSignInIntent(), 9001)
+        );
     }
 
     private void loginUser() {
@@ -67,10 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         loginManager.loginUser(email, password, new LoginManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
-                Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+                openProperActivity(user);
             }
 
             @Override
@@ -80,6 +77,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void openProperActivity(FirebaseUser user) {
+        Intent intent;
+        if ("shabashkaadmin@gmail.com".equalsIgnoreCase(user.getEmail())) {
+            intent = new Intent(LoginActivity.this, AdminActivity.class);
+        } else {
+            intent = new Intent(LoginActivity.this, BaseActivity.class);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -87,8 +96,8 @@ public class LoginActivity extends AppCompatActivity {
             googleLoginManager.handleSignInResult(data, new GoogleLoginManager.AuthCallback() {
                 @Override
                 public void onSuccess(FirebaseUser user) {
-                    startActivity(new Intent(LoginActivity.this, BaseActivity.class));
-                    finish();
+                    UserRepository.saveUserToFirestore(user);
+                    openProperActivity(user);
                 }
 
                 @Override

@@ -48,24 +48,12 @@
                 android:layout_marginTop="8dp">
 
                 <Button
-                    android:id="@+id/btnApply"
+                    android:id="@+id/btnDelete"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:minHeight="56dp"
-                    android:text="@string/response"
-                    android:textSize="14sp"
-                    android:padding="10dp"
-                    android:background="@drawable/rounded_button"
-                    tools:ignore="ButtonStyle,VisualLintButtonSize" />
-
-                <Button
-                    android:id="@+id/btnContact"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:minHeight="56dp"
-                    android:text="@string/contacts"
+                    android:text="@string/delete"
                     android:textSize="14sp"
                     android:padding="10dp"
                     android:layout_marginStart="8dp"
@@ -83,6 +71,6 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/favorite"
             android:src="@drawable/ic_favorite_border"
-            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+            tools:ignore="ImageContrastCheck" />
     </FrameLayout>
 </androidx.cardview.widget.CardView>

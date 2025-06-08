@@ -21,12 +21,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class FavoritesFragment extends Fragment {
-    private JobAdapter jobAdapter;
-    private final List<Job> allFavorites = new ArrayList<>();
-    private final List<Job> filteredFavorites = new ArrayList<>();
+public class ResponsesFragment extends Fragment {
+    private ResponsesJobAdapter jobAdapter;
+    private final List<Job> allResponses = new ArrayList<>();
+    private final List<Job> filteredResponses = new ArrayList<>();
     private FirebaseFirestore db;
 
     @Nullable
@@ -45,77 +47,74 @@ public class FavoritesFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        jobAdapter = new JobAdapter(requireActivity(), filteredFavorites);
+        jobAdapter = new ResponsesJobAdapter(requireActivity(), filteredResponses);
         recyclerView.setAdapter(jobAdapter);
 
         EditText searchInput = view.findViewById(R.id.searchInput);
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterFavorites(s.toString());
+                filterResponses(s.toString());
             }
         });
 
         db = FirebaseFirestore.getInstance();
-        loadFavoriteJobs();
+        loadUserResponses();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void loadFavoriteJobs() {
+    private void loadUserResponses() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            allFavorites.clear();
-            filteredFavorites.clear();
-            jobAdapter.notifyDataSetChanged();
-            return;
-        }
+        if (currentUser == null) return;
 
         String userId = currentUser.getUid();
 
-        db.collection(getString(R.string.users_collection_path)).document(userId).collection(getString(R.string.favorites_collection_path))
+        db.collection(getString(R.string.users_collection_path)).document(userId)
+                .collection(getString(R.string.favorites_collection_path))
                 .get()
                 .addOnSuccessListener(favoritesSnapshot -> {
-                    if (favoritesSnapshot.isEmpty()) {
-                        allFavorites.clear();
-                        filteredFavorites.clear();
-                        jobAdapter.notifyDataSetChanged();
-                        return;
-                    }
-
-                    allFavorites.clear();
-                    filteredFavorites.clear();
-
+                    Set<String> favoriteJobIds = new HashSet<>();
                     for (QueryDocumentSnapshot favDoc : favoritesSnapshot) {
-                        String jobId = favDoc.getId();
-
-                        db.collection(getString(R.string.jobs_collection_path)).document(jobId)
-                                .get()
-                                .addOnSuccessListener(jobDoc -> {
-                                    if (jobDoc.exists()) {
-                                        Job job = jobDoc.toObject(Job.class);
-                                        if (job != null) {
-                                            job.setFavorite(true);
-                                            allFavorites.add(job);
-                                            filterFavorites(getCurrentSearchQuery());
-                                        }
-                                    }
-                                });
+                        favoriteJobIds.add(favDoc.getId());
                     }
-                })
-                .addOnFailureListener(e -> {
-                    allFavorites.clear();
-                    filteredFavorites.clear();
-                    jobAdapter.notifyDataSetChanged();
+
+                    db.collection(getString(R.string.jobs_collection_path))
+                            .whereEqualTo("approved", true)
+                            .get()
+                            .addOnSuccessListener(jobsSnapshot -> {
+                                allResponses.clear();
+                                filteredResponses.clear();
+
+                                for (QueryDocumentSnapshot jobDoc : jobsSnapshot) {
+                                    String jobId = jobDoc.getId();
+
+                                    db.collection(getString(R.string.jobs_collection_path))
+                                            .document(jobId)
+                                            .collection(getString(R.string.applications_collection_path))
+                                            .document(userId)
+                                            .get()
+                                            .addOnSuccessListener(applicationDoc -> {
+                                                if (applicationDoc.exists()) {
+                                                    Job job = jobDoc.toObject(Job.class);
+                                                    if (favoriteJobIds.contains(jobId)) {
+                                                        job.setFavorite(true);
+                                                    }
+
+                                                    allResponses.add(job);
+                                                    filterResponses(getCurrentSearchQuery());
+                                                }
+                                            });
+                                }
+                            });
                 });
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
-    private void filterFavorites(String query) {
-        filteredFavorites.clear();
-        filteredFavorites.addAll(FilterUtils.filterJobs(allFavorites, query));
+    private void filterResponses(String query) {
+        filteredResponses.clear();
+        filteredResponses.addAll(FilterUtils.filterJobs(allResponses, query));
         jobAdapter.notifyDataSetChanged();
     }
 

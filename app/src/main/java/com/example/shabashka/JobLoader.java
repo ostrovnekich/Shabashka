@@ -18,14 +18,19 @@ public class JobLoader {
     }
 
     public void loadJobs(JobLoadCallback callback) {
-        db.collection(context.getString(R.string.jobs_collection_path)).get().addOnCompleteListener(task -> {
-                List<Job> jobList = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Job job = document.toObject(Job.class);
-                    jobList.add(job);
-                }
-                callback.onJobsLoaded(jobList);
-        });
+        db.collection(context.getString(R.string.jobs_collection_path))
+                .whereEqualTo("approved", true)
+                .get()
+                .addOnCompleteListener(task -> {
+                    List<Job> jobList = new ArrayList<>();
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Job job = document.toObject(Job.class);
+                            jobList.add(job);
+                        }
+                    }
+                    callback.onJobsLoaded(jobList);
+                });
     }
 
     public interface JobLoadCallback {

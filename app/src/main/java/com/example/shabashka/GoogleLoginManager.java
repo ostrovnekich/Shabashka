@@ -40,11 +40,23 @@ public class GoogleLoginManager {
     public void handleSignInResult(Intent data, AuthCallback callback) {
         try {
             GoogleSignInAccount account = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException.class);
-            firebaseAuthWithGoogle(account, callback);
+            firebaseAuthWithGoogle(account, new AuthCallback() {
+                @Override
+                public void onSuccess(FirebaseUser user) {
+                    UserRepository.saveUserToFirestore(user);
+                    callback.onSuccess(user);
+                }
+
+                @Override
+                public void onFailure(String errorMessage) {
+                    callback.onFailure(errorMessage);
+                }
+            });
         } catch (ApiException e) {
             callback.onFailure(activity.getString(R.string.login_failed));
         }
     }
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account, AuthCallback callback) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);

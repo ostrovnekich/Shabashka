@@ -13,9 +13,17 @@
         android:theme="@style/Theme.Shabashka"
         tools:targetApi="31">
         <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAlLYEqgWX16EU7oN6TbFslRCV_zitm6bQ" />
+
+        <activity
             android:name=".BaseActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

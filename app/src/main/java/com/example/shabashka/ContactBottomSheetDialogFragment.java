@@ -2,22 +2,24 @@ package com.example.shabashka;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class ContactBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     private final String phone;
-    private final String email;
 
-    public ContactBottomSheetDialogFragment(String phone, String email) {
+    public ContactBottomSheetDialogFragment(String phone) {
         this.phone = phone;
-        this.email = email;
     }
 
     @SuppressLint("SetTextI18n")
@@ -29,13 +31,15 @@ public class ContactBottomSheetDialogFragment extends BottomSheetDialogFragment 
         dialog.setContentView(view);
 
         TextView tvPhone = view.findViewById(R.id.tvPhone);
-        TextView tvEmail = view.findViewById(R.id.tvEmail);
-        Button btnClose = view.findViewById(R.id.btnClose);
+        Button btnCall = view.findViewById(R.id.btnCall);
 
-        tvPhone.setText(String.format("%s %s", getString(R.string.phone), phone));
-        tvEmail.setText(String.format("%s %s", getString(R.string.mail), email));
+        tvPhone.setText(getString(R.string.phone) + " " + phone);
 
-        btnClose.setOnClickListener(v -> dismiss());
+        btnCall.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phone));
+            startActivity(intent);
+        });
 
         return dialog;
     }

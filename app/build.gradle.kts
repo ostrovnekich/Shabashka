@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
     implementation(libs.firebase.database)
+    implementation(libs.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -50,4 +51,5 @@ dependencies {
     implementation (libs.play.services.auth)
     implementation (libs.firebase.firestore)
     implementation(libs.material)
+    implementation (libs.places)
 }

@@ -60,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         registerManager.registerUser(email, password, confirmPassword, new RegisterManager.AuthCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
+                UserRepository.saveUserToFirestore(user);
+
                 Intent intent = new Intent(RegisterActivity.this, BaseActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -80,6 +82,8 @@ public class RegisterActivity extends AppCompatActivity {
             googleLoginManager.handleSignInResult(data, new GoogleLoginManager.AuthCallback() {
                 @Override
                 public void onSuccess(FirebaseUser user) {
+                    UserRepository.saveUserToFirestore(user);
+
                     startActivity(new Intent(RegisterActivity.this, BaseActivity.class));
                     finish();
                 }
